@@ -25,4 +25,9 @@ export class HomePage {
 
   }
 
+
+  download() {
+    var fileTransfer = new Transfer();
+  }
+
 }
