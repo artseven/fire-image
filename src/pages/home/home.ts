@@ -1,33 +1,56 @@
+import { Http } from '@angular/http';
+import { ViewChild } from '@angular/core';
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-
+import { Slides } from 'ionic-angular';
+import 'rxjs/add/operator/map';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
+  @ViewChild(Slides) slides:Slides
+  fetchedImages: any;
+  images: any;
+  // goToSlide() {
+  //   this.slides.slideTo(1, 5000);
+  // }
+  constructor(
+    public navCtrl: NavController,
+    public http: Http
+  ) {
+  //   this.http.get('http://solosnet.com/signage/test.cfm')
+  //   .map(res=> res.json())
+  //   .subscribe(data=> {
+  //     this.fetchedImages = data
+  //     console.log('IMAGES', this.fetchedImages);
+  //     this.images = this.fetchedImages;
+  //   }
+  // );
+  }
 
-  images = [
-      {
-        FILE: "http://www.solosnet.com/signage/vertical12up90.jpg",
-        DATETIME: 1508944716
-      },
-      {
-        FILE: "http://www.solosnet.com/signage/vertical1up90.jpg",
-        DATETIME: 1508944836
-      },
-      {
-        FILE: "http://www.solosnet.com/signage/america.gif",
-        DATETIME: 1508945016
-      }
-  ];
-  constructor(public navCtrl: NavController) {
+  refresh = setInterval(()=> {
+    this.http.get('http://solosnet.com/signage/test.cfm')
+    .map(res=> res.json())
+    .subscribe(data=> {
+      this.fetchedImages = data
+      console.log('IMAGES', this.fetchedImages);
+      this.images = this.fetchedImages;
+    });
+  }, 4000);
 
+  ionViewWillEnter() {
+  
+  }
+
+
+  ionViewDidLoad() {
+    
   }
 
 
   download() {
-    var fileTransfer = new Transfer();
+    // var fileTransfer = new Transfer();
   }
 
 }
