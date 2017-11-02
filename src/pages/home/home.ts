@@ -19,14 +19,13 @@ export class HomePage {
     public navCtrl: NavController,
     public http: Http
   ) {
-  //   this.http.get('http://solosnet.com/signage/test.cfm')
-  //   .map(res=> res.json())
-  //   .subscribe(data=> {
-  //     this.fetchedImages = data
-  //     console.log('IMAGES', this.fetchedImages);
-  //     this.images = this.fetchedImages;
-  //   }
-  // );
+    this.http.get('http://solosnet.com/signage/test.cfm')
+    .map(res=> res.json())
+    .subscribe(data=> {
+      this.fetchedImages = data
+      this.images = this.fetchedImages;
+    }
+  );
   }
 
   refresh = setInterval(()=> {
@@ -34,23 +33,15 @@ export class HomePage {
     .map(res=> res.json())
     .subscribe(data=> {
       this.fetchedImages = data
-      console.log('IMAGES', this.fetchedImages);
+      console.log('IMAGES', this.fetchedImages.length);
       this.images = this.fetchedImages;
     });
-  }, 4000);
+  }, 5000);
 
-  ionViewWillEnter() {
   
-  }
-
-
-  ionViewDidLoad() {
-    
-  }
-
 
   download() {
-    // var fileTransfer = new Transfer();
+    var fileTransfer = new Transfer();
   }
 
 }
