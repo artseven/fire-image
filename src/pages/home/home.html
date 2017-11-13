@@ -1,6 +1,6 @@
 
 <ion-content>
-    <ion-slides *ngIf="images" class="image-slider" loop="false" slidesPerView="1" autoplay="10000" >
+    <ion-slides *ngIf="images" class="image-slider" loop="false" slidesPerView="1" (ionSlideDidChange)="slideChanged()">
         <ion-slide *ngFor="let img of images ">
             <img [src]="img.FILE" class="slide-image" /> 
         </ion-slide>
