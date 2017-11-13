@@ -12,9 +12,7 @@ export class HomePage {
   @ViewChild(Slides) slides:Slides
   fetchedImages: any;
   images: any;
-
-  
-  now = new Date().getTime();
+ 
   constructor(
     public navCtrl: NavController,
     public http: Http
@@ -33,22 +31,12 @@ export class HomePage {
     .map(res=> res.json())
     .subscribe(data=> {
       this.images = data;
-      // this.images.forEach(element => {
-      //   console.log(this.images.indexOf(element));
-      //   this.goToNext(element.index, element.DATETIME);
-      // });
-      // console.log('Objects', this.images);
-      // var nextTime = this.images[1].DATETIME;
-      // var eta_ms = nextTime - Date.now();
-      // setTimeout(()=>{
-      //   this.goToSlide(1)
-      // }, eta_ms);
-      // console.log('ETA', eta_ms);
+      if (this.images[1].DATETIME - Date.now() > 0 ) {
+          this.goToNext(1, this.images[1].DATETIME);
+      }
     });
   }, 10000);
 
-  isTime: boolean = false;
-  if ()
   goToNext(index, time) {
     var eta_ms = time - Date.now();
     setTimeout(()=> {
@@ -57,7 +45,11 @@ export class HomePage {
     }, eta_ms);
   }
 
-
+  slideChanged() {
+    let currentIndex = this.slides.getActiveIndex();
+    console.log('Current index is ', currentIndex);
+    this.goToNext(currentIndex + 1, this.images(currentIndex+1).DATETIME);
+  }
 
   download() {
     // var fileTransfer = new Transfer();
