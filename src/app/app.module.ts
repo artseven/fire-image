@@ -1,3 +1,5 @@
+import { File } from '@ionic-native/file';
+import { FileTransfer, FileUploadOptions, FileTransferObject} from '@ionic-native/file-transfer'
 import { HttpModule } from '@angular/http';
 import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { BrowserModule } from '@angular/platform-browser';
@@ -29,7 +31,9 @@ import { HomePage } from '../pages/home/home';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    File,
+    FileTransfer
   ]
 })
 export class AppModule {}

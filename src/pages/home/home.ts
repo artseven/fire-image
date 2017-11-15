@@ -1,10 +1,12 @@
 import { Http } from '@angular/http';
 import { ViewChild } from '@angular/core';
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { AlertController, NavController } from 'ionic-angular';
 import { Slides } from 'ionic-angular';
 import 'rxjs/add/operator/map';
-import { setTimeout } from 'timers';
+import { FileTransfer, FileTransferObject, FileUploadOptions } from '@ionic-native/file-transfer';
+
+declare var cordova:any;
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -14,9 +16,16 @@ export class HomePage {
   fetchedImages: any;
   images: any;
  
+  imageURI: any;
+  imageFileName: any;
+  storageDirectory = cordova.file.directory;
+
   constructor(
     public navCtrl: NavController,
-    public http: Http
+    public http: Http,
+    private transfer: FileTransfer,
+    private alertCtrl: AlertController
+    
   ) {
     setInterval(()=> {
       this.http.get('http://solosnet.com/signage/test.cfm')
@@ -28,7 +37,7 @@ export class HomePage {
         if (Date.now() - (this.images[1].DATETIME)*1000 < 0) {
           this.slides.slideNext();
         }
-    }, 10000);
+    }, 5000);
   }
 
   goToNext(index, time) {
@@ -41,7 +50,7 @@ export class HomePage {
     }, eta_ms);
   }
 
-
+  fileUrl = "http://movieaddigital.com/output/pi1729-5e241218fd38a5bb3ccb8cac18f8bade-3_1920x1080.jpg"
 
 
 
@@ -53,8 +62,17 @@ export class HomePage {
     // this.goToNext(nextIndex, this.images[nextIndex].DATETIME);
   }
 
-  download() {
-    // var fileTransfer = new Transfer();
+  downloadImage(image) {
+    let fileTransfer: FileTransferObject = this.transfer.create();
+
+    const imageLocation = `${cordova.file.applicationDirectory}www/assets/img/${image}`;
+
+    fileTransfer.download(imageLocation, this.storageDirectory + image).then((entry)=> {
+
+      const alertSuccess = this.alertCtrl.create({
+        title: `Download succeeded`,
+      })
+    })
   }
 
 }
