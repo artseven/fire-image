@@ -1,13 +1,8 @@
-<ion-header>
-    <ion-navbar>
-        <ion-title>Image Gallery</ion-title>
-    </ion-navbar>
-</ion-header>
 
 <ion-content>
-    <ion-slides class="image-slider" loop="true" slidesPerView="2">
-        <ion-slide *ngFor="let img of images">
-            <img src="assets/img/{{img}}" class="thumb-img" imageViewer/>
+    <ion-slides *ngIf="images" class="image-slider" loop="false" slidesPerView="1" (ionSlideDidChange)="slideChanged()">
+        <ion-slide *ngFor="let img of images ">
+            <img [src]="img.FILE" class="slide-image" /> 
         </ion-slide>
     </ion-slides>
 </ion-content>
