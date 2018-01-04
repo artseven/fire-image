@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { Transfer, TransferObject} from '@ionic-native/transfer';
 
 @Component({
   selector: 'page-home',
